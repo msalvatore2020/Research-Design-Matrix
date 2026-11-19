@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research Question Verbs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE work: a reference card a dissertation chair hands to doctoral students
+   IDEA a methods-text reference table: design, verbs, verbs to avoid, two worked questions
+   PICTURE the table itself, filterable by research family
+   COLOUR ice ground, deep ink, one hot pink reserved for verbs to avoid
+   TYPE Space Grotesk headings + Inter text
+   LAYOUT title and filters across the top, full-width table, rules band beneath; cards on a phone */
+:root{color-scheme:light dark;--bg:light-dark(#dff1f7,#06222e);--ink:light-dark(#06222e,#e6f4f8);--soft:light-dark(#3d5a66,#a9c6d0);--card:light-dark(#ffffff,#0d3140);--line:light-dark(#c3dfe8,#1d4a5b);--pink:light-dark(#c4155a,#ff6fa3);--verb:light-dark(#0b5d63,#7fd6d0);--chip:light-dark(#ffffff,#0d3140)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 Inter,Arial,sans-serif;overflow-x:clip}
+.band{padding:clamp(24px,4vw,56px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+h1{font:700 clamp(32px,4.4vw,50px)/1.05 'Space Grotesk',Arial,sans-serif;letter-spacing:-.02em;margin:0 0 12px;text-wrap:balance}
+h2{font:700 clamp(24px,2.6vw,32px)/1.1 'Space Grotesk',Arial,sans-serif;letter-spacing:-.01em;margin:0 0 16px}
+.lede{max-width:70ch;color:var(--soft);margin:0 0 20px;font-size:17px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.bar button{font:600 15px Inter,Arial,sans-serif;min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line);background:var(--chip);color:var(--ink);cursor:pointer}
+.bar button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bar button:focus-visible,#q:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+#q{font:16px Inter,Arial,sans-serif;min-height:44px;padding:0 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--chip);color:var(--ink);flex:1 1 220px;max-width:340px}
+.count{color:var(--soft);font-size:14px}
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th{font:600 13px Inter,Arial,sans-serif;text-align:left;color:var(--soft);padding:14px 14px 10px;border-bottom:2px solid var(--line);vertical-align:bottom}
+td{padding:14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.fam td{background:var(--bg);font:700 15px 'Space Grotesk',Arial,sans-serif;padding:10px 14px;color:var(--ink)}
+.d{font:700 17px/1.25 'Space Grotesk',Arial,sans-serif;display:block}
+.fit{display:inline-block;margin-top:6px;font-size:12.5px;font-weight:600;color:var(--soft);white-space:nowrap}
+.ans{color:var(--soft)}
+.use{color:var(--verb);font-weight:700}
+.avoid{color:var(--pink);font-weight:600}
+.rq{line-height:1.45}
+.rq b{color:var(--verb)}
+.none{padding:24px;color:var(--soft)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.panel h3{font:700 19px/1.2 'Space Grotesk',Arial,sans-serif;margin:0 0 10px}
+.panel ol,.panel ul{margin:0;padding-left:20px}
+.panel li{margin-bottom:8px}
+.ladder{display:grid;gap:8px}
+.step{display:grid;grid-template-columns:minmax(0,9em) minmax(0,1fr);gap:12px;align-items:baseline;padding:10px 12px;border-radius:10px;background:var(--bg)}
+.step strong{font-family:'Space Grotesk',Arial,sans-serif}
+.pair{display:grid;gap:10px}
+.pair p{margin:0;padding:12px 14px;border-radius:10px;background:var(--bg)}
+.pair .weak{border-left:4px solid var(--pink)}
+.pair .good{border-left:4px solid var(--verb)}
+.small{font-size:13.5px;color:var(--soft);margin:14px 0 0}
+@media(max-width:760px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding:12px 4px;border-bottom:1px solid var(--line)}.stack td{display:block;border:0;padding:4px 12px}.stack td::before{content:attr(data-l);display:block;font-size:12.5px;font-weight:600;color:var(--soft)}.stack td:first-child::before{display:none}.stack tr.fam td::before{display:none}.stack tr.fam{padding:0;border:0}}
+</style>
+</head>
+<body>
+<header class="band">
+<div class="wrap">
+<h1>Choosing verbs for research questions</h1>
+<p class="lede">The verb tells your committee what your design can deliver. Pick the design first, then a verb it can support, and keep the same population, setting and construct you named in your purpose statement.</p>
+<div class="bar" role="group" aria-label="Filter by research family">
+<button type="button" data-f="all" aria-pressed="true">All designs</button>
+<button type="button" data-f="Quantitative" aria-pressed="false">Quantitative</button>
+<button type="button" data-f="Qualitative" aria-pressed="false">Qualitative</button>
+<button type="button" data-f="Mixed methods" aria-pressed="false">Mixed methods</button>
+<button type="button" data-f="Practitioner" aria-pressed="false">Practitioner</button>
+<label for="q" class="count" style="position:absolute;left:-9999px">Search verbs or designs</label>
+<input id="q" type="search" placeholder="Search a verb, e.g. predict" autocomplete="off">
+<span class="count" id="count"></span>
+</div>
+<div class="tablewrap">
+<table class="stack" id="t">
+<thead><tr><th style="width:15%">Design</th><th style="width:13%">Answers</th><th style="width:12%">Use these verbs</th><th style="width:12%">Avoid</th><th style="width:24%">Sample question · new-teacher mentoring</th><th style="width:24%">Sample question · chronic absenteeism</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+<p class="small">Sample questions describe a fictional New Jersey district. “Timeline fit” refers to a study that is approved by the IRB midway through the program and must be carried out and measured before it ends.</p>
+</div>
+</header>
+
+<section class="band" style="padding-top:0">
+<div class="wrap grid">
+<div class="panel">
+<h3>Causal verbs need a causal design</h3>
+<div class="ladder">
+<div class="step"><strong>Describe</strong><span>what exists: levels, rates, frequencies</span></div>
+<div class="step"><strong>Compare</strong><span>groups that already differ, with no claim about why</span></div>
+<div class="step"><strong>Relate · predict</strong><span>association, even with controls; still not cause</span></div>
+<div class="step"><strong>Change</strong><span>pre/post with a comparison group; cautious causal language</span></div>
+<div class="step"><strong>Affect · reduce</strong><span>random assignment, or a strong quasi-experiment</span></div>
+</div>
+<p class="small">“Impact,” “influence,” “effect,” “improve” and “narrow the gap” sit at the top rung. Use them only with a design that earns them.</p>
+</div>
+<div class="panel">
+<h3>Five tests of a strong question</h3>
+<ol>
+<li><strong>Traceable.</strong> It answers one phrase of your purpose statement.</li>
+<li><strong>Specific.</strong> It names the population, setting, construct and, for quantitative work, how each variable is measured.</li>
+<li><strong>Answerable.</strong> The data you can collect after IRB approval can actually answer it.</li>
+<li><strong>Open where it should be.</strong> Qualitative questions begin with how or what, never yes or no.</li>
+<li><strong>Honest.</strong> The verb promises no more than the design delivers, and the question doesn’t assume its answer.</li>
+</ol>
+</div>
+<div class="panel">
+<h3>Sharpening one question</h3>
+<div class="pair">
+<p class="weak">Does mentoring impact teacher retention?</p>
+<p class="good">To what extent do first-year teachers’ ratings of mentor support <b style="color:var(--verb)">predict</b> their intent to return for a second year in a New Jersey K–12 district, controlling for school poverty level?</p>
+</div>
+<p class="small">The revision names the measure, population, setting and control, and swaps a causal verb for one a correlational design supports.</p>
+</div>
+</div>
+</section>
+
+<script>
+{
+const D=[
+{f:"Quantitative",d:"Descriptive",fit:"High",a:"How much, how often, what level",u:"describe, determine, estimate, measure",x:"explain, affect, impact",m:"What proportion of first-year teachers in the district report meeting with an assigned mentor at least twice a month during their first semester?",s:"What percentage of ninth graders in the district were chronically absent (missing 10% or more of enrolled days) in 2025–26, by school?"},
+{f:"Quantitative",d:"Causal-comparative",fit:"High",a:"Do existing groups differ?",u:"compare, differ, contrast",x:"cause, result in, improve",m:"Is there a statistically significant difference in three-year retention between novice teachers matched with a same-subject mentor and those matched with an out-of-field mentor?",s:"Do chronic absence rates differ between ninth graders who completed a summer bridge program and those who did not?"},
+{f:"Quantitative",d:"Correlational or predictive",fit:"High",a:"Are variables related, and how strongly?",u:"relate, associate, predict, account for",x:"affect, influence, impact, effect",m:"To what extent do first-year teachers’ ratings of mentor support predict their intent to return for a second year, controlling for school poverty level?",s:"What is the relationship between ninth graders’ sense-of-belonging scores and days absent, controlling for prior-year attendance?"},
+{f:"Quantitative",d:"Quasi-experimental",fit:"Moderate",a:"Did outcomes change, compared with a group that didn’t get the intervention?",u:"change, compare gains, differ after",x:"prove, cause (without controls)",m:"How do novice teachers’ self-efficacy scores change from September to May in schools using structured weekly mentoring, compared with matched schools using monthly check-ins?",s:"How did chronic absence rates change in the semester after a family text-message program began, compared with a matched school without it?"},
+{f:"Quantitative",d:"Experimental",fit:"Low",a:"Does the intervention cause the outcome?",u:"affect, increase, reduce, improve",x:"relate (understates the design)",m:"What is the effect of weekly instructional coaching, compared with standard monthly mentoring, on first-year teachers’ observation scores when teachers are randomly assigned?",s:"Does a weekly family text nudge reduce days absent among chronically absent ninth graders compared with a randomly assigned control group?"},
+{f:"Qualitative",d:"Basic interpretive",fit:"High",a:"How do people understand something?",u:"explore, understand, describe, interpret",x:"measure, impact, significant",m:"How do first-year teachers in a high-poverty district describe the mentoring support that helped them through their first semester?",s:"How do families of chronically absent ninth graders describe the barriers to daily attendance?"},
+{f:"Qualitative",d:"Case study",fit:"High",a:"How and why did something unfold in one bounded case?",u:"examine, explore, describe how and why",x:"generalize, prove",m:"How and why did one middle school redesign its mentoring program after losing half of its novice teachers in two years?",s:"How did one urban high school carry out its tiered attendance plan in 2025–26, and what conditions supported or hindered it?"},
+{f:"Qualitative",d:"Phenomenology",fit:"High",a:"What is it like to live through this?",u:"experience, make sense of, perceive",x:"cause, compare groups",m:"What is the lived experience of first-year teachers who seek a mentor’s help after a difficult formal observation?",s:"How do high school students make sense of returning to school after a prolonged absence?"},
+{f:"Qualitative",d:"Grounded theory",fit:"Moderate",a:"What process or theory explains this?",u:"generate, develop, construct, theorize",x:"test, confirm",m:"What process do novice teachers move through as they decide whether to ask a mentor for help?",s:"What process do counselors and attendance officers use to rebuild trust with families of chronically absent students?"},
+{f:"Qualitative",d:"Narrative inquiry",fit:"High",a:"What stories do people tell, and what do they mean?",u:"narrate, recount, story, restory",x:"measure, predict",m:"How do veteran mentors narrate the experiences that shaped the way they support new teachers?",s:"What stories do students who reengaged after chronic absence tell about what brought them back?"},
+{f:"Qualitative",d:"Ethnography",fit:"Low",a:"How does a group’s culture shape practice?",u:"characterize, interpret, observe",x:"evaluate, test",m:"How does the professional culture of a high-retention elementary school shape how teachers informally mentor one another?",s:"What shared beliefs and routines about attendance characterize a high-attendance urban high school?"},
+{f:"Mixed methods",d:"Convergent",fit:"Moderate",a:"Do two kinds of data agree?",u:"merge, compare, corroborate, converge",x:"strands with no integration",m:"To what extent do survey ratings of mentor support and interview accounts converge in describing what first-year teachers value most?",s:"How do attendance records and student focus groups align or diverge in explaining Monday absences?"},
+{f:"Mixed methods",d:"Explanatory sequential",fit:"Moderate",a:"Why did the numbers come out this way?",u:"explain, account for, elaborate",x:"explore (before the numbers)",m:"How do interviews with first-year teachers help explain why mentor support ratings predict intent to return?",s:"How do family interviews help explain the grade-level differences in chronic absence found in district data?"},
+{f:"Mixed methods",d:"Exploratory sequential",fit:"Low",a:"What matters, and how widespread is it?",u:"explore, then develop, test, generalize",x:"confirm (before exploring)",m:"What supports do novice teachers name as essential, and how widely are those supports reported when built into a district-wide survey?",s:"What barriers do families name in focus groups, and how common are they when surveyed across the district?"},
+{f:"Practitioner",d:"Action research",fit:"High",a:"How can we improve our own practice?",u:"refine, improve, adapt, implement",x:"generalize, prove",m:"How can our mentoring team refine biweekly check-ins across two cycles using first-year teacher feedback?",s:"How can our attendance team adapt family outreach over two cycles to reduce ninth-grade chronic absence at our school?"},
+{f:"Practitioner",d:"Program evaluation",fit:"High",a:"Did the program work as designed, and meet its goals?",u:"assess, evaluate, determine the extent",x:"cause (without a comparison)",m:"To what extent was the district mentoring program implemented as designed, and did it meet its goal of 90% of first-year teachers meeting monthly?",s:"To what extent was the attendance intervention implemented as designed, and did chronic absence fall to the 15% target?"},
+{f:"Practitioner",d:"Delphi study",fit:"Moderate",a:"What do experts agree on?",u:"identify, rank, reach consensus",x:"measure effect",m:"What components of a first-year mentoring program do New Jersey superintendents and principals agree are essential?",s:"Which attendance interventions do district attendance leaders rank as most feasible for urban high schools?"}
+];
+const fams=["Quantitative","Qualitative","Mixed methods","Practitioner"];
+const rows=document.getElementById('rows'),count=document.getElementById('count'),q=document.getElementById('q');
+let fam="all";
+const esc=t=>t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const draw=()=>{
+const term=q.value.trim().toLowerCase();
+let n=0,html="";
+for(const F of fams){
+if(fam!=="all"&&fam!==F)continue;
+const list=D.filter(r=>r.f===F&&(!term||(r.d+" "+r.u+" "+r.a+" "+r.m+" "+r.s).toLowerCase().includes(term)));
+if(!list.length)continue;
+n+=list.length;
+html+=`<tr class="fam"><td colspan="6">${F}</td></tr>`+list.map(r=>`<tr><td data-l="Design"><span class="d">${esc(r.d)}</span><span class="fit">Timeline fit: ${r.fit}</span></td><td data-l="Answers" class="ans">${esc(r.a)}</td><td data-l="Use these verbs" class="use">${esc(r.u)}</td><td data-l="Avoid" class="avoid">${esc(r.x)}</td><td data-l="Mentoring" class="rq">${esc(r.m)}</td><td data-l="Absenteeism" class="rq">${esc(r.s)}</td></tr>`).join('');
+}
+rows.innerHTML=html||`<tr><td colspan="6" class="none">No design matches “${esc(term)}”. Try a broader verb.</td></tr>`;
+count.textContent=`${n} of ${D.length} designs`;
+};
+document.querySelectorAll('.bar button').forEach(b=>b.addEventListener('click',()=>{fam=b.dataset.f;document.querySelectorAll('.bar button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw();}));
+q.addEventListener('input',draw);
+draw();
+}
+</script>
+</body>
+</html>
